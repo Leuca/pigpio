@@ -1,7 +1,8 @@
-%global subver %(curl https://raw.githubusercontent.com/joan2937/pigpio/master/pigpio.h | sed -ne '/VERSION/p' | cut -d" " -f 3)
+%global subver %(curl https://raw.githubusercontent.com/Leuca/pigpio/copr/pigpio.h | sed -ne '/VERSION/p' | cut -d" " -f 3)
 %global pigpio_version 1.%{subver}
 %global _description_python %{expand:
 A python module which allows control of the General Purpose Input Outputs (GPIO).}
+%global python_pigpio_version $(curl https://raw.githubusercontent.com/Leuca/pigpio/copr/setup.py | sed -ne '/version/p' | awk -F "'" '{print $2}')
 
 Name:       {{{ git_dir_name }}}
 Version:    %{pigpio_version}_{{{ git_dir_version }}}
@@ -89,14 +90,14 @@ install -m 0644 util/pigpiod.service %{buildroot}%{_prefix}/lib/systemd/system
 %if 0%{?rhel} < 9
 %files -n python2-{{{ git_dir_name }}}
 %license UNLICENCE
-%{python2_sitelib}/pigpio-%{pigpio_version}-py%{python2_version}.egg-info
+%{python2_sitelib}/pigpio-%{pigpio_version}-py%{python_pigpio_version}.egg-info
 %{python2_sitelib}/pigpio.py
 %{python2_sitelib}/pigpio.pyc
 %endif
 
 %files -n python3-{{{ git_dir_name }}}
 %license UNLICENCE
-%{python3_sitelib}/pigpio-%{pigpio_version}-py%{python3_version}.egg-info
+%{python3_sitelib}/pigpio-%{pigpio_version}-py%{python_pigpio_version}.egg-info
 %pycached %{python3_sitelib}/pigpio.py
 
 %post -p /sbin/ldconfig
