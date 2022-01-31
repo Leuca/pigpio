@@ -78,12 +78,12 @@ install -m 0644 util/pigpiod.service %{buildroot}%{_prefix}/lib/systemd/system
 %{_bindir}/pig2vcd
 %{_bindir}/pigpiod
 %{_bindir}/pigs
-%{_mandir}/man1/pig2vcd.1
-%{_mandir}/man1/pigpiod.1
-%{_mandir}/man1/pigs.1
-%{_mandir}/man3/pigpio.3
-%{_mandir}/man3/pigpiod_if2.3
-%{_mandir}/man3/pigpiod_if.3
+%{_mandir}/man1/pig2vcd.1.gz
+%{_mandir}/man1/pigpiod.1.gz
+%{_mandir}/man1/pigs.1.gz
+%{_mandir}/man3/pigpio.3.gz
+%{_mandir}/man3/pigpiod_if2.3.gz
+%{_mandir}/man3/pigpiod_if.3.gz
 %{_prefix}/lib/systemd/system/pigpiod.service
 
 %if 0%{?rhel} < 9
