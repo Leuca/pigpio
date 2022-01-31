@@ -54,12 +54,12 @@ mkdir -p %{buildroot}/%{_prefix}/lib/systemd/system
 install -m 644 util/pigpiod.service %{buildroot}/%{_prefix}/lib/systemd/system
 mkdir -p %{buildroot}/%{_mandir}/man1
 mkdir -p %{buildroot}/%{_mandir}/man3
-install -m 644 pig2vcd.1 %{buildroot}/%{_mandir}/man1
-install -m 644 pigpiod.1 %{buildroot}/%{_mandir}/man1
-install -m 644 pigs.1 %{buildroot}/%{_mandir}/man1
-install -m 644 pigpio.3 %{buildroot}/%{_mandir}/man3
-install -m 644 pigpiod_if2.3 %{buildroot}/%{_mandir}/man3
-install -m 644 pigpiod_if.3 %{buildroot}/%{_mandir}/man3
+install -m 644 pig2vcd.1 %{buildroot}/%{_mandir}/man1/pig2vcd.1
+install -m 644 pigpiod.1 %{buildroot}/%{_mandir}/man1/pigpiod.1
+install -m 644 pigs.1 %{buildroot}/%{_mandir}/man1/pigs.1
+install -m 644 pigpio.3 %{buildroot}/%{_mandir}/man3/pigpio.3
+install -m 644 pigpiod_if2.3 %{buildroot}/%{_mandir}/man3/pigpiod_if2.3
+install -m 644 pigpiod_if.3 %{buildroot}/%{_mandir}/man3/pigpiod_if.3
 
 %files
 %license UNLICENCE
