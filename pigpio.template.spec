@@ -1,5 +1,7 @@
 %global subver %(sed -ne '/VERSION/p' pigpio.h | cut -d" " -f 3)
 %global pigpio_version 1.%{subver}
+%global _description_python %{expand:
+A python module which allows control of the General Purpose Input Outputs (GPIO).}
 
 Name:       {{{ git_dir_name }}}
 Version:    %{pigpio_version}_{{{ git_dir_version }}}
@@ -28,6 +30,10 @@ BuildArch:  noarch
 
 %description
 pigpio is a C library for the Raspberry which allows control of the General Purpose Input Outputs (GPIO).
+
+%description -n python2-{{{ git_dir_name }}} %_description_python
+
+%description -n python3-{{{ git_dir_name }}} %_description_python
 
 %prep
 {{{ git_dir_setup_macro }}}
