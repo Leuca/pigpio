@@ -36,11 +36,11 @@ BuildArch:  noarch
 %description
 pigpio is a C library for the Raspberry which allows control of the General Purpose Input Outputs (GPIO).
 
-%description -n python2-{{{ git_dir_name }}} %_description_python
-
 %if 0%{?rhel} < 9
-%description -n python3-{{{ git_dir_name }}} %_description_python
+%description -n python2-{{{ git_dir_name }}} %_description_python
 %endif
+
+%description -n python3-{{{ git_dir_name }}} %_description_python
 
 %prep
 {{{ git_dir_setup_macro }}}
