@@ -2,7 +2,7 @@
 %global pigpio_version 1.%{subver}
 
 Name:       {{{ git_dir_name }}}
-Version:    %{pigpio_version}-{{{ git_dir_version }}}
+Version:    %{pigpio_version}_{{{ git_dir_version }}}
 Release:    %{?dist}
 Summary:    C library for the Raspberry which allows control of the GPIO
 
