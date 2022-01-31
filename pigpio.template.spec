@@ -52,9 +52,17 @@ make
 make DESTDIR=%{buildroot} prefix=%{_prefix} libdir=%{_libdir} mandir=%{_mandir} install
 mkdir -p %{buildroot}/%{_prefix}/lib/systemd/system
 install -m 644 util/pigpiod.service %{buildroot}/%{_prefix}/lib/systemd/system
+mkdir -p %{buildroot}/%{_mandir}/man1
+mkdir -p %{buildroot}/%{_mandir}/man3
+install -m 644 pig2vcd.1 %{buildroot}/%{_mandir}/man1
+install -m 644 pigpiod.1 %{buildroot}/%{_mandir}/man1
+install -m 644 pigs.1 %{buildroot}/%{_mandir}/man1
+install -m 644 pigpio.3 %{buildroot}/%{_mandir}/man3
+install -m 644 pigpiod_if2.3 %{buildroot}/%{_mandir}/man3
+install -m 644 pigpiod_if.3 %{buildroot}/%{_mandir}/man3
 
 %files
-%license UNLICENSE
+%license UNLICENCE
 %doc README
 /opt/pigpio/cgi
 %{_includedir}/pigpio.h
@@ -69,14 +77,9 @@ install -m 644 util/pigpiod.service %{buildroot}/%{_prefix}/lib/systemd/system
 %{_bindir}/pig2vcd
 %{_bindir}/pigpiod
 %{_bindir}/pigs
-%{_mandir}/man1
-%{_mandir}/man1/libpigpiod_if2.so.1
-%{_mandir}/man1/libpigpiod_if.so.1
-%{_mandir}/man1/libpigpio.so.1
 %{_mandir}/man1/pig2vcd.1
 %{_mandir}/man1/pigpiod.1
 %{_mandir}/man1/pigs.1
-%{_mandir}/man3
 %{_mandir}/man3/pigpio.3
 %{_mandir}/man3/pigpiod_if2.3
 %{_mandir}/man3/pigpiod_if.3
@@ -84,14 +87,14 @@ install -m 644 util/pigpiod.service %{buildroot}/%{_prefix}/lib/systemd/system
 
 %if 0%{?rhel} < 9
 %files -n python2-{{{ git_dir_name }}}
-%license UNLICENSE
+%license UNLICENCE
 %{python2_sitelib}/pigpio-%{pigpio_version}-py%{python2_version}.egg-info
 %{python2_sitelib}/pigpio.py
 %{python2_sitelib}/pigpio.pyc
 %endif
 
 %files -n python3-{{{ git_dir_name }}}
-%license UNLICENSE
+%license UNLICENCE
 %{python3_sitelib}/pigpio-%{pigpio_version}-py%{python3_version}.egg-info
 %pycached %{python3_sitelib}/pigpio.py
 
