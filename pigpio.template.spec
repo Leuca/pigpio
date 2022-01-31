@@ -55,7 +55,7 @@ install -m 0644 util/pigpiod.service %{buildroot}/%{_prefix}/lib/systemd/system
 
 %files
 %license UNLICENCE
-%doc README
+# %doc README
 /opt/pigpio/cgi
 %{_includedir}/pigpio.h
 %{_includedir}/pigpiod_if.h
