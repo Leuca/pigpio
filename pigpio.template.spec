@@ -46,6 +46,7 @@ make
 
 %install
 make DESTDIR=%{buildroot} prefix=%{_prefix} libdir=%{_libdir} mandir=%{_mandir} install
+mkdir -p %{buildroot}/%{_prefix}/lib/systemd/system
 install -m 644 util/pigpiod.service %{buildroot}/%{_prefix}/lib/systemd/system
 
 %files
