@@ -49,17 +49,18 @@ pigpio is a C library for the Raspberry which allows control of the General Purp
 make
 
 %install
-mkdir -p %{buildroot}/%{_bindir}
-mkdir -p %{buildroot}/%{_libdir}
-mkdir -p %{buildroot}/%{_mandir}
-mkdir -p %{buildroot}/%{_includedir}
-mkdir -p %{buildroot}/%{_prefix}/lib/systemd/system
+mkdir -p %{buildroot}%{_bindir}
+mkdir -p %{buildroot}%{_libdir}
+mkdir -p %{buildroot}%{_mandir}/man1
+mkdir -p %{buildroot}%{_mandir}/man3
+mkdir -p %{buildroot}%{_includedir}
+mkdir -p %{buildroot}%{_prefix}/lib/systemd/system
 %if 0%{?rhel} < 9
-mkdir -p %{buildroot}/%{python2_sitelib}
+mkdir -p %{buildroot}%{python2_sitelib}
 %endif
-mkdir -p %{buildroot}/%{python3_sitelib}
+mkdir -p %{buildroot}%{python3_sitelib}
 make DESTDIR=%{buildroot} prefix=%{_prefix} libdir=%{_libdir} mandir=%{_mandir} install
-install -m 0644 util/pigpiod.service %{buildroot}/%{_prefix}/lib/systemd/system
+install -m 0644 util/pigpiod.service %{buildroot}%{_prefix}/lib/systemd/system
 
 %files
 %license UNLICENCE
