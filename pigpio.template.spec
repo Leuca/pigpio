@@ -1,5 +1,5 @@
 %global __python /usr/bin/python2
-%global subver %(sed -ne '/VERSION/p' pigpio.h | cut -d" " -f 3)
+%global subver %(curl https://raw.githubusercontent.com/joan2937/pigpio/master/pigpio.h | sed -ne '/VERSION/p' | cut -d" " -f 3)
 %global pigpio_version 1.%{subver}
 %global _description_python %{expand:
 A python module which allows control of the General Purpose Input Outputs (GPIO).}
@@ -38,8 +38,6 @@ pigpio is a C library for the Raspberry which allows control of the General Purp
 
 %prep
 {{{ git_dir_setup_macro }}}
-%undefine subver
-%global subver %(sed -ne '/VERSION/p' pigpio.h | cut -d" " -f 3)
 
 %build
 make
