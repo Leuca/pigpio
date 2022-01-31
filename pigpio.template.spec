@@ -3,6 +3,7 @@
 %global _description_python %{expand:
 A python module which allows control of the General Purpose Input Outputs (GPIO).}
 %global python_pigpio_version %(curl https://raw.githubusercontent.com/Leuca/pigpio/copr/setup.py | sed -ne '/version/p' | awk -F "'" '{print $2}')
+%global debug_package %{nil}
 
 Name:       {{{ git_dir_name }}}
 Version:    %{pigpio_version}_{{{ git_dir_version }}}
