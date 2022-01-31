@@ -90,14 +90,14 @@ install -m 0644 util/pigpiod.service %{buildroot}%{_prefix}/lib/systemd/system
 %if 0%{?rhel} < 9
 %files -n python2-{{{ git_dir_name }}}
 %license UNLICENCE
-%{python2_sitelib}/pigpio-%{pigpio_version}-py%{python_pigpio_version}.egg-info
+%{python2_sitelib}/pigpio-%{python_pigpio_version}-py%{python2_version}.egg-info
 %{python2_sitelib}/pigpio.py
 %{python2_sitelib}/pigpio.pyc
 %endif
 
 %files -n python3-{{{ git_dir_name }}}
 %license UNLICENCE
-%{python3_sitelib}/pigpio-%{pigpio_version}-py%{python_pigpio_version}.egg-info
+%{python3_sitelib}/pigpio-%{python_pigpio_version}-py%{python3_version}.egg-info
 %pycached %{python3_sitelib}/pigpio.py
 
 %post -p /sbin/ldconfig
