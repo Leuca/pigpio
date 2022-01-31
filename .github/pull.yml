@@ -1,0 +1,5 @@
+version: "1"
+rules:
+  - base: master
+    upstream: joan2937:master
+    mergeMethod: merge
