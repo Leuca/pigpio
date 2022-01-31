@@ -1,4 +1,3 @@
-%global __python /usr/bin/python2
 %global subver %(curl https://raw.githubusercontent.com/joan2937/pigpio/master/pigpio.h | sed -ne '/VERSION/p' | cut -d" " -f 3)
 %global pigpio_version 1.%{subver}
 %global _description_python %{expand:
@@ -15,14 +14,19 @@ License:    Unlicense
 URL:        https://github.com/joan2937/pigpio
 VCS:        {{{ git_dir_vcs }}}
 
-BuildRequires: gcc python2-devel python3-devel
+BuildRequires: gcc python3-devel
+%if 0%{?rhel} < 9
+BuildRequires: python2-devel
+%endif
 
 Source:     {{{ git_dir_pack }}}
 
+%if 0%{?rhel} < 9
 %package -n python2-{{{ git_dir_name }}}
 Summary:    Python 2 module for the Raspberry which allows control of the GPIO
 Requires:   {{{ git_dir_name }}}
 BuildArch:  noarch
+%endif
 
 %package -n python3-{{{ git_dir_name }}}
 Summary:    Python 3 module for the Raspberry which allows control of the GPIO
@@ -34,7 +38,9 @@ pigpio is a C library for the Raspberry which allows control of the General Purp
 
 %description -n python2-{{{ git_dir_name }}} %_description_python
 
+%if 0%{?rhel} < 9
 %description -n python3-{{{ git_dir_name }}} %_description_python
+%endif
 
 %prep
 {{{ git_dir_setup_macro }}}
@@ -76,15 +82,17 @@ install -m 644 util/pigpiod.service %{buildroot}/%{_prefix}/lib/systemd/system
 %{_mandir}/man3/pigpiod_if.3
 %{_prefix}/lib/systemd/system/pigpiod.service
 
+%if 0%{?rhel} < 9
 %files -n python2-{{{ git_dir_name }}}
 %license UNLICENSE
-%{python3_sitelib}/pigpio-%{pigpio_version}-py%{python3_version}.egg-info
-%{python3_sitelib}/pigpio.py
-%{python3_sitelib}/pigpio.pyc
+%{python2_sitelib}/pigpio-%{pigpio_version}-py%{python2_version}.egg-info
+%{python2_sitelib}/pigpio.py
+%{python2_sitelib}/pigpio.pyc
+%endif
 
 %files -n python3-{{{ git_dir_name }}}
 %license UNLICENSE
-%{python_sitelib}/pigpio-%{pigpio_version}-py%{python_version}.egg-info
+%{python3_sitelib}/pigpio-%{pigpio_version}-py%{python3_version}.egg-info
 %pycached %{python3_sitelib}/pigpio.py
 
 %post -p /sbin/ldconfig
