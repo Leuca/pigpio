@@ -1,4 +1,5 @@
-%global subver %(sed -ne '/VERSION/p' pigpio.h | cut -d" " -f 3)
+%global __python /usr/bin/python2
+%global subver %(sed -ne '/VERSION/p' %{_builddir}/pigpio.h | cut -d" " -f 3)
 %global pigpio_version 1.%{subver}
 %global _description_python %{expand:
 A python module which allows control of the General Purpose Input Outputs (GPIO).}
@@ -43,6 +44,7 @@ make
 
 %install
 make DESTDIR=%{buildroot} prefix=%{_prefix} libdir=%{_libdir} mandir=%{_mandir} install
+install -m 644 util/pigpiod.service %{buildroot}/%{_prefix}/lib/systemd/system
 
 %files
 %license UNLICENSE
@@ -71,6 +73,7 @@ make DESTDIR=%{buildroot} prefix=%{_prefix} libdir=%{_libdir} mandir=%{_mandir} 
 %{_mandir}/man3/pigpio.3
 %{_mandir}/man3/pigpiod_if2.3
 %{_mandir}/man3/pigpiod_if.3
+%{_prefix}/lib/systemd/system/pigpiod.service
 
 %files -n python2-{{{ git_dir_name }}}
 %license UNLICENSE
