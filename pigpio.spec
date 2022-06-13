@@ -20,20 +20,25 @@ BuildRequires: gcc python3-devel
 %if 0%{?rhel} < 9
 BuildRequires: python2-devel
 %endif
+BuildRequires: systemd-rpm-macros
 
 Source:     {{{ git_dir_pack }}}
 
 %if 0%{?rhel} < 9
 %package -n python2-{{{ git_dir_name }}}
 Summary:    Python 2 module for the Raspberry which allows control of the GPIO
-Requires:   {{{ git_dir_name }}}
+Requires:   %{name}%{?_isa} = %{version}-%{release}
 BuildArch:  noarch
 %endif
 
 %package -n python3-{{{ git_dir_name }}}
 Summary:    Python 3 module for the Raspberry which allows control of the GPIO
-Requires:   {{{ git_dir_name }}}
+Requires:   %{name}%{?_isa} = %{version}-%{release}
 BuildArch:  noarch
+
+%package    devel
+Summary:    Development files for %{name}
+Requires:   %{name}%{?_isa} = %{version}-%{release}
 
 %description
 pigpio is a C library for the Raspberry which allows control of the General Purpose Input Outputs (GPIO).
@@ -44,11 +49,14 @@ pigpio is a C library for the Raspberry which allows control of the General Purp
 
 %description -n python3-{{{ git_dir_name }}} %_description_python
 
+%description    devel
+Development headers and shared libraries for %{name}
+
 %prep
 {{{ git_dir_setup_macro }}}
 
 %build
-make
+%make_build
 
 %install
 mkdir -p %{buildroot}%{_bindir}
@@ -56,27 +64,21 @@ mkdir -p %{buildroot}%{_libdir}
 mkdir -p %{buildroot}%{_mandir}/man1
 mkdir -p %{buildroot}%{_mandir}/man3
 mkdir -p %{buildroot}%{_includedir}
-mkdir -p %{buildroot}%{_prefix}/lib/systemd/system
+mkdir -p %{buildroot}%{_unitdir}
 %if 0%{?rhel} < 9
 mkdir -p %{buildroot}%{python2_sitelib}
 %endif
 mkdir -p %{buildroot}%{python3_sitelib}
-make DESTDIR=%{buildroot} prefix=%{_prefix} libdir=%{_libdir} mandir=%{_mandir} install
-install -m 0644 util/pigpiod.service %{buildroot}%{_prefix}/lib/systemd/system
+%make_install prefix=%{_prefix} libdir=%{_libdir} mandir=%{_mandir}
+install -m 0644 util/pigpiod.service %{buildroot}%{_unitdir}
 
 %files
 %license UNLICENCE
 %doc README
 /opt/pigpio/cgi
-%{_includedir}/pigpio.h
-%{_includedir}/pigpiod_if.h
-%{_includedir}/pigpiod_if2.h
 %{_libdir}/libpigpio.so.1
 %{_libdir}/libpigpiod_if.so.1
 %{_libdir}/libpigpiod_if2.so.1
-%{_libdir}/libpigpio.so
-%{_libdir}/libpigpiod_if.so
-%{_libdir}/libpigpiod_if2.so
 %{_bindir}/pig2vcd
 %{_bindir}/pigpiod
 %{_bindir}/pigs
@@ -86,7 +88,15 @@ install -m 0644 util/pigpiod.service %{buildroot}%{_prefix}/lib/systemd/system
 %{_mandir}/man3/pigpio.3.gz
 %{_mandir}/man3/pigpiod_if2.3.gz
 %{_mandir}/man3/pigpiod_if.3.gz
-%{_prefix}/lib/systemd/system/pigpiod.service
+%{_unitdir}/pigpiod.service
+
+%files devel
+%{_libdir}/libpigpio.so
+%{_libdir}/libpigpiod_if.so
+%{_libdir}/libpigpiod_if2.so
+%{_includedir}/pigpio.h
+%{_includedir}/pigpiod_if.h
+%{_includedir}/pigpiod_if2.h
 
 %if 0%{?rhel} < 9
 %files -n python2-{{{ git_dir_name }}}
@@ -103,8 +113,10 @@ install -m 0644 util/pigpiod.service %{buildroot}%{_prefix}/lib/systemd/system
 %pycached %{python3_sitelib}/pigpio.py
 
 %post -p /sbin/ldconfig
+%systemd_post pigpiod.service
 
 %postun -p /sbin/ldconfig
+%systemd_postun_with_restart pigpiod.service
 
 %changelog
 {{{ git_dir_changelog }}}
