@@ -1,0 +1,7 @@
+function get_pigpio_version {
+	echo "1.$(cat pigpio.h | sed -ne '/VERSION/p' | cut -d" " -f 3)"
+}
+
+function get_pigpio_python_version {
+	cat setup.py | sed -ne '/version/p' | awk -F "'" '{print $2}'
+}

@@ -1,13 +1,11 @@
-%global subver %(curl https://raw.githubusercontent.com/Leuca/pigpio/copr/pigpio.h | sed -ne '/VERSION/p' | cut -d" " -f 3)
-%global pigpio_version 1.%{subver}
 %global _description_python %{expand:
 A python module which allows control of the General Purpose Input Outputs (GPIO).}
-%global python_pigpio_version %(curl https://raw.githubusercontent.com/Leuca/pigpio/copr/setup.py | sed -ne '/version/p' | awk -F "'" '{print $2}')
+%global python_pigpio_version {{{ get_pigpio_python_version }}}
 %global debug_package %{nil}
 
 Name:       {{{ git_dir_name }}}
-Version:    %{pigpio_version}_{{{ git_dir_version }}}
-Release:    %{?dist}
+Version:    {{{ get_pigpio_version }}}
+Release:    2%{?dist}
 Summary:    C library for the Raspberry which allows control of the GPIO
 
 ExclusiveArch:  aarch64 %{arm}
@@ -112,10 +110,10 @@ install -m 0644 util/pigpiod.service %{buildroot}%{_unitdir}
 %{python3_sitelib}/pigpio-%{python_pigpio_version}-py%{python3_version}.egg-info
 %pycached %{python3_sitelib}/pigpio.py
 
-%post -p /sbin/ldconfig
+%post
 %systemd_post pigpiod.service
 
-%postun -p /sbin/ldconfig
+%postun
 %systemd_postun_with_restart pigpiod.service
 
 %changelog
