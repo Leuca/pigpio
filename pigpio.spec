@@ -58,6 +58,7 @@ Development headers and shared libraries for %{name}
 %autopatch -p1
 
 %build
+export CFLAGS="%{optflags}"
 %make_build
 
 %install
