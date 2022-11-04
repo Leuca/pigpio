@@ -116,6 +116,9 @@ install -m 0644 util/pigpiod.service %{buildroot}%{_unitdir}
 %post
 %systemd_post pigpiod.service
 
+%preun
+%systemd_preun pigpiod.service
+
 %postun
 %systemd_postun_with_restart pigpiod.service
 
