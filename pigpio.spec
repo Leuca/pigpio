@@ -22,6 +22,8 @@ BuildRequires: systemd-rpm-macros
 
 Source:     {{{ git_dir_pack }}}
 
+Patch0:     pigpio-fix-sytemd-unit.patch
+
 %if 0%{?rhel} < 9
 %package -n python2-{{{ git_dir_name }}}
 Summary:    Python 2 module for the Raspberry which allows control of the GPIO

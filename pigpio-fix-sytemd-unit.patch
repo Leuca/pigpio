@@ -1,0 +1,18 @@
+diff --git a/util/pigpiod.service b/util/pigpiod.service
+index f040d38..6a75365 100644
+--- a/util/pigpiod.service
++++ b/util/pigpiod.service
+@@ -1,10 +1,10 @@
+ [Unit]
+-Description=Pigpio daemon
++Description=Daemon required to control GPIO pins via pigpio
+ 
+ [Service]
+ Type=forking
+-PIDFile=pigpio.pid
+-ExecStart=/usr/bin/pigpiod
++ExecStart=/usr/bin/pigpiod -l
++SuccessExitStatus=0 255
+ 
+ [Install]
+ WantedBy=multi-user.target
