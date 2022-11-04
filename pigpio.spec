@@ -3,42 +3,43 @@ A python module which allows control of the General Purpose Input Outputs (GPIO)
 %global python_pigpio_version {{{ get_pigpio_python_version }}}
 %global debug_package %{nil}
 
-Name:       {{{ git_dir_name }}}
-Version:    {{{ get_pigpio_version }}}
-Release:    2%{?dist}
-Summary:    C library for the Raspberry which allows control of the GPIO
+Name:           {{{ git_dir_name }}}
+Version:        {{{ get_pigpio_version }}}
+Release:        2%{?dist}
+Summary:        C library for the Raspberry which allows control of the GPIO
 
 ExclusiveArch:  aarch64 %{arm}
 
-License:    Unlicense
-URL:        https://github.com/joan2937/pigpio
-VCS:        {{{ git_dir_vcs }}}
+License:        Unlicense
+URL:            https://github.com/joan2937/pigpio
+VCS:            {{{ git_dir_vcs }}}
 
-BuildRequires: gcc python3-devel
+BuildRequires:  gcc
+BuildRequires:  python3-devel
 %if 0%{?rhel} < 9
-BuildRequires: python2-devel
+BuildRequires:  python2-devel
 %endif
-BuildRequires: systemd-rpm-macros
+BuildRequires:  systemd-rpm-macros
 
-Source:     {{{ git_dir_pack }}}
+Source:         {{{ git_dir_pack }}}
 
-Patch0:     pigpio-fix-sytemd-unit.patch
+Patch0:         pigpio-fix-sytemd-unit.patch
 
 %if 0%{?rhel} < 9
-%package -n python2-{{{ git_dir_name }}}
-Summary:    Python 2 module for the Raspberry which allows control of the GPIO
-Requires:   %{name}%{?_isa} = %{version}-%{release}
-BuildArch:  noarch
+%package -n     python2-{{{ git_dir_name }}}
+Summary:        Python 2 module for the Raspberry which allows control of the GPIO
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+BuildArch:      noarch
 %endif
 
-%package -n python3-{{{ git_dir_name }}}
-Summary:    Python 3 module for the Raspberry which allows control of the GPIO
-Requires:   %{name}%{?_isa} = %{version}-%{release}
-BuildArch:  noarch
+%package -n     python3-{{{ git_dir_name }}}
+Summary:        Python 3 module for the Raspberry which allows control of the GPIO
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+BuildArch:      noarch
 
-%package    devel
-Summary:    Development files for %{name}
-Requires:   %{name}%{?_isa} = %{version}-%{release}
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description
 pigpio is a C library for the Raspberry which allows control of the General Purpose Input Outputs (GPIO).
