@@ -55,6 +55,7 @@ Development headers and shared libraries for %{name}
 
 %prep
 {{{ git_dir_setup_macro }}}
+%autopatch -p1
 
 %build
 %make_build
