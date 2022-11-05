@@ -5,7 +5,7 @@ A python module which allows control of the General Purpose Input Outputs (GPIO)
 
 Name:           {{{ git_dir_name }}}
 Version:        {{{ get_pigpio_version }}}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        C library for the Raspberry which allows control of the GPIO
 
 ExclusiveArch:  aarch64 %{arm}
