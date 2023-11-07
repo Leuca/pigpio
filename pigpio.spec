@@ -5,7 +5,7 @@ A python module which allows control of the General Purpose Input Outputs (GPIO)
 
 Name:           {{{ git_dir_name }}}
 Version:        {{{ get_pigpio_version }}}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        C library for the Raspberry which allows control of the GPIO
 
 ExclusiveArch:  aarch64 %{arm}
@@ -22,8 +22,6 @@ BuildRequires:  python2-devel
 BuildRequires:  systemd-rpm-macros
 
 Source:         {{{ git_dir_pack }}}
-
-Patch0:         pigpio-fix-sytemd-unit.patch
 
 %if 0%{?rhel} < 9
 %package -n     python2-{{{ git_dir_name }}}
@@ -73,7 +71,7 @@ mkdir -p %{buildroot}%{python2_sitelib}
 %endif
 mkdir -p %{buildroot}%{python3_sitelib}
 %make_install prefix=%{_prefix} libdir=%{_libdir} mandir=%{_mandir}
-install -m 0644 util/pigpiod.service %{buildroot}%{_unitdir}
+install -m 0644 pigpiod.service %{buildroot}%{_unitdir}
 
 %files
 %license UNLICENCE

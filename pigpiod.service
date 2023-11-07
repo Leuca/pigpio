@@ -1,0 +1,11 @@
+[Unit]
+Description=Daemon required to control GPIO pins via pigpio
+
+[Service]
+Type=simple
+Environment="PIGPIOD_ARGS=-l -g"
+ExecStart=/usr/bin/pigpiod $PIGPIOD_ARGS
+SuccessExitStatus=0 255
+
+[Install]
+WantedBy=multi-user.target
